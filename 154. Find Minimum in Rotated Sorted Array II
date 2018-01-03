@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int l=0;
+        int r=nums.size()-1;
+        while(l<r)
+        {
+            int mid=l+(r-l)/2;     //写（l+r）／2也行，但是在大量的情况下有可能造成溢出的bug：binary search bug，因此选用这个方式
+            if(nums[mid]>nums[r])
+            {
+                l=mid+1;
+            }
+            else if(nums[mid]==nums[r])
+            {
+                --r;
+            }
+            else if(nums[mid]<nums[r])
+            {
+                r=mid;
+            }
+        }
+        return nums[l];
+    }
+};
