@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void reverseWords(string &s) {
+        reverse(s.begin(),s.end());
+        int storeidx=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]!=' ')
+            {
+                if(storeidx!=0)
+                    s[storeidx++]=' ';
+                int j=i;
+                while(j<s.size()&&s[j]!=' ')
+                {
+                    s[storeidx++]=s[j++];
+                }
+                reverse(s.begin()+storeidx-(j-i),s.begin()+storeidx);
+                i=j;
+            }
+        }
+        s.erase(s.begin()+storeidx,s.end());
+    }
+};
