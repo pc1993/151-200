@@ -1,0 +1,80 @@
+多种解法，调用了istream& getline (istream&  is, string& str, char delim) （输入字符段，输出存储字符段，截止目标点）
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        istringstream s1(version1);
+        istringstream s2(version2);
+        while(1)
+        {
+            int n1;
+            int n2;
+            string tmp1;
+            string tmp2;
+            if(!getline(s1,tmp1,'.'))
+                n1=0;
+            else
+                n1=stoi(tmp1);
+            if(!getline(s2,tmp2,'.'))
+                n2=0;
+            else
+                n2=stoi(tmp2);
+            if(not s1 and not s2)
+                return 0;
+            if(n1<n2)
+                return -1;
+            if(n1>n2)
+                return 1;
+        }
+    }
+};
+C++引入了ostringstream、istringstream、stringstream这三个类，要使用他们创建对象就必须包含<sstream>这个头文件。
+istringstream类用于执行C++风格的串流的输入操作。
+ostringstream类用于执行C风格的串流的输出操作。
+strstream类同时可以支持C风格的串流的输入输出操作。
+int compareVersion(string version1, string version2) {
+    for(auto& w : version1) if (w == '.') w=' ';
+    for(auto& w : version2) if (w == '.') w=' ';
+    istringstream s1(version1), s2(version2);
+    while(1) {
+        int n1,n2;
+        if (not(s1 >> n1) ) n1 = 0;
+        if (not(s2 >> n2) ) n2 = 0;
+        if (not s1 and not s2) return 0;
+        if (n1<n2) return -1;
+        if (n1>n2) return 1;
+    }
+}
+
+
+这个算法，有可能出现2.23和2.213错误的情况，需要补零，变成230和213的比较
+int compareVersion(string version1, string version2) {
+    int i = 0; 
+    int j = 0;
+    int n1 = version1.size(); 
+    int n2 = version2.size();
+    
+    int num1 = 0;
+    int num2 = 0;
+    while(i<n1 || j<n2)
+    {
+        while(i<n1 && version1[i]!='.'){
+            num1 = num1*10+(version1[i]-'0');
+            i++;
+        }
+        
+        while(j<n2 && version2[j]!='.'){
+            num2 = num2*10+(version2[j]-'0');;
+            j++;
+        }
+        
+        if(num1>num2) return 1;
+        else if(num1 < num2) return -1;
+        
+        num1 = 0;
+        num2 = 0;
+        i++;
+        j++;
+    }
+    
+    return 0;
+}
