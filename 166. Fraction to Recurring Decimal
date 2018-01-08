@@ -1,0 +1,35 @@
+当一个负数超过INT_MAX的时候，abs不能工作，只能先转换成long再进行计算
+class Solution {
+public:
+    string fractionToDecimal(int n, int m) {
+        long numerator=n;
+        long denominator=m;
+        if(numerator==0)
+            return "0";
+        string res;
+        if(numerator<0^denominator<0)
+            res+='-';
+        if(numerator<0)
+            numerator*=-1;
+        if(denominator<0)
+             denominator*=-1;
+        res+=to_string(numerator/denominator);
+        if(numerator%denominator==0)
+            return res;
+        res+='.';
+        unordered_map<int,int> mp;
+        for(long int t=numerator%denominator;t>0;t=t%denominator)
+        {
+            if(mp.count(t)>0)
+            {
+                res.insert(mp[t],1,'(');
+                res+=')';
+                break;
+            }
+            mp[t]=res.size();
+            t*=10;
+            res+=to_string(t/denominator);
+        }
+        return res;   
+    }
+};
