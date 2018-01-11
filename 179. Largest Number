@@ -1,3 +1,4 @@
+此题解决方法，同样适用于求最小的数
 sort(begin,end,compare)
 compare 是比较规则 bool
 eg
