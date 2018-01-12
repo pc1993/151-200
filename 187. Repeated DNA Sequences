@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+    unordered_map<int, int> m;
+    vector<string> r;
+    int t = 0, i = 0, ss = s.size();
+    while (i < 9)
+        t = t << 3 | s[i++] & 7;
+    while (i < ss)
+        if (m[t = t << 3 & 0x3FFFFFFF | s[i++] & 7]++ == 1)
+            r.push_back(s.substr(i - 10, 10));
+    return r;
+}
+};
+
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_set<string> string_set;
+        if (s.length() <= 10) {
+            return {};
+        }
+        unordered_map<string ,int> m;
+        for (int i = 0; i < s.length() - 9; ++i) {
+            string tmp = s.substr(i, 10);
+            if (m.find(tmp) == m.end()) {
+                m[tmp] = 1;
+            } else {
+                string_set.insert(tmp);
+            }
+        }
+        return vector<string>(string_set.begin(), string_set.end());
+    }
+};
