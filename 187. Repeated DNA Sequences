@@ -1,3 +1,4 @@
+
 class Solution {
 public:
     vector<string> findRepeatedDnaSequences(string s) {
@@ -5,9 +6,9 @@ public:
     vector<string> r;
     int t = 0, i = 0, ss = s.size();
     while (i < 9)
-        t = t << 3 | s[i++] & 7;
+        t = t << 3 | s[i++] & 7;              &7是取出每个字符的最后三位，组成一个3*9位的二进制数字
     while (i < ss)
-        if (m[t = t << 3 & 0x3FFFFFFF | s[i++] & 7]++ == 1)
+        if (m[t = t << 3 & 0x3FFFFFFF | s[i++] & 7]++ == 1)。 组成3*10位的二进制数字，每次读入一位组成新的二进制数字，如果曾经出现过则push
             r.push_back(s.substr(i - 10, 10));
     return r;
 }
