@@ -1,0 +1,92 @@
+dfs
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+        if(n==0)
+            return 0;
+        int m=grid[0].size();
+        int res=0;
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<m;++j)
+            {
+                if(grid[i][j]=='1')
+                {
+                    res++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return res;
+    }
+    void dfs(vector<vector<char>>& grid,int i,int j)
+    {
+        grid[i][j]='0';
+        if(i>0&&grid[i-1][j]=='1')
+            dfs(grid,i-1,j);
+        if(i<grid.size()-1&&grid[i+1][j]=='1')
+            dfs(grid,i+1,j);
+        if(j>0&&grid[i][j-1]=='1')
+            dfs(grid,i,j-1);
+        if(j<grid[0].size()-1&&grid[i][j+1]=='1')
+            dfs(grid,i,j+1);
+    }
+};
+
+
+bfs
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+        if(n==0)
+            return 0;
+        int m=grid[0].size();
+        int res=0;
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<m;++j)
+            {
+                if(grid[i][j]=='1')
+                {
+                    res++;
+                    bfs(grid,i,j);
+                }
+            }
+        }
+        return res;
+    }
+    void bfs(vector<vector<char>>& grid,int i,int j)
+    {
+        queue<vector<int>> tmp;
+        tmp.push({i,j});
+        grid[i][j]='0';
+        while(!tmp.empty())
+        {
+            int x=tmp.front()[0];
+            int y=tmp.front()[1];
+            tmp.pop();
+            if(x>0&&grid[x-1][y]=='1')
+            {
+                tmp.push({x-1,y});
+                grid[x-1][y]='0';
+            }
+            if(x<grid.size()-1&&grid[x+1][y]=='1')
+            {
+                tmp.push({x+1,y});
+                grid[x+1][y]='0';
+            }
+            if(y>0&&grid[x][y-1]=='1')
+            {
+                tmp.push({x,y-1});
+                grid[x][y-1]='0';
+            }
+            if(y<grid[0].size()-1&&grid[x][y+1]=='1')
+            {
+                tmp.push({x,y+1});
+                grid[x][y+1]='0';
+            }
+        }
+    }
+};
