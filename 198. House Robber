@@ -1,0 +1,17 @@
+dp算法，这一时刻的值=max（t-2+now，t-1）
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        int pro=0;
+        int last=0;
+        int sum=0;
+        for(int i=0;i<n;++i)
+        {
+            sum=max(pro+nums[i],last);
+            pro=last;
+            last=sum;
+        }
+        return sum;
+    }
+};
