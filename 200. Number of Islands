@@ -1,4 +1,4 @@
-dfs
+dfs 深度优先
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
@@ -35,7 +35,7 @@ public:
 };
 
 
-bfs
+bfs 广度优先
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
